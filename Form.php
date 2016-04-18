@@ -6,7 +6,7 @@
  *
  * @author      Turan Karatuğ <tkaratug@hotmail.com.tr>
  * @license     MIT
- * @version     1.0
+ * @version     1.0.1
  * 
  */
 
