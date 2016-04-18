@@ -43,7 +43,7 @@ class Form
      */
     public function input($name = '', $attr = [])
     {
-        $element = '<input type="' . $name . '" id="' . $name . '" ';
+        $element = '<input type="text" name="' . $name . '" id="' . $name . '" ';
 
         if(count($attr) > 0) {
             foreach($attr as $key => $val) {
