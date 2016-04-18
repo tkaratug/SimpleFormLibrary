@@ -15,18 +15,26 @@ class Form
 
     /**
      * Form open
-     * @param   string  $name
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   array           $attr
      * @return  string
      */
     public function open($name = '', $attr = [])
     {
-        $form = '<form name="' . $name . '" id="' . $name . '" ';
-
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
+        if(is_array($name)) {
+            $form = '<form ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val)
                 $form .= $key . '="' . $val . '" ';
             }
+        } else {
+            $form = '<form name="' . $name . '" id="' . $name . '" ';
+
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $form .= $key . '="' . $val . '" ';
+                }
+            }            
         }
 
         $form = trim($form);
@@ -37,17 +45,26 @@ class Form
 
     /**
      * Text input
-     * @param   string  $name
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   array           $attr
      * @return  string
      */
     public function input($name = '', $attr = [])
     {
-        $element = '<input type="text" name="' . $name . '" id="' . $name . '" ';
+        if(is_array($name)) {
+            $element = '<input ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<input type="text" name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -59,18 +76,27 @@ class Form
 
     /**
      * Password input
-     * @param   string  $name
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   array           $attr
      * @return  string
      */
     public function password($name = '', $attr = [])
     {
-        $element = '<input type="password" name="' . $name . '" id="' . $name . '" ';
-
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+        if(is_array($name)) {
+            $element = '<input type="password" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
+        } else {
+            $element = '<input type="password" name="' . $name . '" id="' . $name . '" ';
+
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }    
         }
 
         $element = trim($element);
@@ -81,33 +107,54 @@ class Form
 
     /**
      * Hidden input
-     * @param   string  $name
-     * @param   string  $value
+     * @param   string|array    $name
+     * @param   string          $value
      * @return  string
      */
     public function hidden($name = '', $value = '')
     {
-        $element = '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '">';
+        if(is_array($name)) {
+            $element = '<input type="hidden" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+            $element = trim($element);
+            $element .= '>';
+        } else {
+            $element = '<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '">';
+        }
+
         return $element . "\n";
     }
 
     /**
      * File input
-     * @param   string  $name
-     * @param   bool    $multiple
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   bool            $multiple
+     * @param   array           $attr
      * @return  string
      */
     public function file($name = '', $multiple = false, $attr = [])
     {
-        if($multiple == true)
-            $element = '<input type="file" name="' . $name . '[]" id="' . $name . '[]" multiple="multiple" ';
-        else
-            $element = '<input type="file" name="' . $name . '" id="' . $name . '" ';
+        if(is_array($name)) {
+            $element = '<input type="file" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            if($multiple == true)
+                $element = '<input type="file" name="' . $name . '[]" id="' . $name . '[]" multiple="multiple" ';
+            else
+                $element = '<input type="file" name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -119,18 +166,27 @@ class Form
 
     /**
      * Custom input
-     * @param   string  $type
-     * @param   string  $name
-     * @param   array   $attr
+     * @param   string|array    $type
+     * @param   string          $name
+     * @param   array           $attr
      * @return  string
      */
     public function custom($type = '', $name = '', $attr = [])
     {
-        $element = '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ';
+        if(is_array($type)) {
+            $element = '<input ';
+            if(count($type) > 0) {
+                foreach($type as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -142,18 +198,27 @@ class Form
 
     /**
      * Textarea
-     * @param   string  $name
-     * @param   string  $text
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $text
+     * @param   array           $attr
      * @return  string
      */
     public function textarea($name = '', $text = '', $attr = [])
     {
-        $element = '<textarea name="' . $name . '" id="' . $name . '" ';
+        if(is_array($name)) {
+            $element = '<textarea ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<textarea name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -165,22 +230,32 @@ class Form
 
     /**
      * SelectBox
-     * @param   string  $name
-     * @param   array   $options
-     * @param   string  $selected
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   array           $options
+     * @param   string          $selected
+     * @param   array           $attr
      * @return  string
      */
     public function select($name = '', $options = [], $selected = '', $attr = [])
     {
-        $element = '<select name="' . $name . '" id="' . $name . '" ';
+        if(is_array($name)) {
+            $element = '<select ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<select name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
+        $element = trim($element);
         $element .= '>';
 
         $dropdown = '';
@@ -198,22 +273,32 @@ class Form
 
     /**
      * Multiple SelectBox
-     * @param   string  $name
-     * @param   array   $options
-     * @param   string  $selected
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   array           $options
+     * @param   string          $selected
+     * @param   array           $attr
      * @return  string
      */
     public function multiSelect($name = '', $options = [], $selected = '', $attr = [])
     {
-        $element = '<select name="' . $name . '" id="' . $name . '" multiple="multiple" ';
+        if(is_array($name)) {
+            $element = '<select multiple="multiple" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<select name="' . $name . '" id="' . $name . '" multiple="multiple" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
+        $element = trim($element);
         $element .= '>';
 
         $dropdown = '';
@@ -231,24 +316,33 @@ class Form
 
     /**
      * Checkbox
-     * @param   string  $name
-     * @param   string  $value
-     * @param   bool    $checked
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $value
+     * @param   bool            $checked
+     * @param   array           $attr
      * @return  string
      */
     public function checkbox($name = '', $value = '', $checked = false, $attr = [])
     {
-        $element = '<input type="checkbox" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
-
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+        if(is_array($name)) {
+            $element = '<input type="checkbox" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
-        }
+        } else {
+            $element = '<input type="checkbox" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
 
-        if($checked == true)
-            $element .= 'checked';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+
+            if($checked == true)
+                $element .= 'checked';
+        }
 
         $element = trim($element);
         $element .= '>';
@@ -258,25 +352,34 @@ class Form
 
     /**
      * Radio button
-     * @param   string  $name
-     * @param   string  $value
-     * @param   bool    $checked
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $value
+     * @param   bool            $checked
+     * @param   array           $attr
      * @return  string
      */
     public function radio($name = '', $value = '', $checked = false, $attr = [])
     {
-        $element = '<input type="radio" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
-
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+        if(is_array($name)) {
+            $element = '<input type="radio" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
+        } else {
+            $element = '<input type="radio" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
+
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+
+            if($checked == true)
+                $element .= 'checked';
         }
-
-        if($checked == true)
-            $element .= 'checked';
-
+        
         $element = trim($element);
         $element .= '>';
 
@@ -285,18 +388,27 @@ class Form
 
     /**
      * Form submit
-     * @param   string  $name
-     * @param   string  $value
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $value
+     * @param   array           $attr
      * @return  string
      */
     public function submit($name = '', $value = '', $attr = [])
     {
-        $element = '<input type="submit" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
+        if(is_array($name)) {
+            $element = '<input type="submit" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<input type="submit" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -308,18 +420,27 @@ class Form
 
     /**
      * Form button
-     * @param   string  $name
-     * @param   string  $content
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $content
+     * @param   array           $attr
      * @return  string
      */
     public function button($name = '', $content = '', $attr = [])
     {
-        $element = '<button type="button" name="' . $name . '" id="' . $name . '" ';
+        if(is_array($name)) {
+            $element = '<button type="button" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<button type="button" name="' . $name . '" id="' . $name . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -331,18 +452,27 @@ class Form
 
     /**
      * Form reset button
-     * @param   string  $name
-     * @param   string  $value
-     * @param   array   $attr
+     * @param   string|array    $name
+     * @param   string          $value
+     * @param   array           $attr
      * @return  string
      */
     public function reset($name = '', $value = '', $attr = [])
     {
-        $element = '<input type="reset" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
+        if(is_array($name)) {
+            $element = '<input type="reset" ';
+            if(count($name) > 0) {
+                foreach($name as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
+            }
+        } else {
+            $element = '<input type="reset" name="' . $name . '" id="' . $name . '" value="' . $value . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $element .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $element .= $key . '="' . $val . '" ';
+                }
             }
         }
 
@@ -361,11 +491,20 @@ class Form
      */
     public function label($for = '', $content = '', $attr = [])
     {
-        $label = '<label for="' . $for . '" ';
+        if(is_array($for)) {
+            $label = '<label ';
+            if(count($for) > 0) {
+                foreach($for as $key => $val) {
+                    $label .= $key . '="' . $val ."' ";
+                }
+            }
+        } else {
+            $label = '<label for="' . $for . '" ';
 
-        if(count($attr) > 0) {
-            foreach($attr as $key => $val) {
-                $label .= $key . '="' . $val . '" ';
+            if(count($attr) > 0) {
+                foreach($attr as $key => $val) {
+                    $label .= $key . '="' . $val . '" ';
+                }
             }
         }
 
