@@ -339,10 +339,10 @@ class Form
                     $element .= $key . '="' . $val . '" ';
                 }
             }
-
-            if($checked == true)
-                $element .= 'checked';
         }
+        
+        if($checked == true)
+                $element .= 'checked';
 
         $element = trim($element);
         $element .= '>';
@@ -375,10 +375,10 @@ class Form
                     $element .= $key . '="' . $val . '" ';
                 }
             }
-
-            if($checked == true)
-                $element .= 'checked';
         }
+        
+        if($checked == true)
+                $element .= 'checked';
         
         $element = trim($element);
         $element .= '>';
