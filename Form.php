@@ -322,7 +322,7 @@ class Form
      * @param   array           $attr
      * @return  string
      */
-    public function checkbox($name = '', $value = '', $checked = false, $attr = [])
+    public function checkbox($name = '', $checked = false, $value = '', $attr = [])
     {
         if(is_array($name)) {
             $element = '<input type="checkbox" ';
@@ -358,7 +358,7 @@ class Form
      * @param   array           $attr
      * @return  string
      */
-    public function radio($name = '', $value = '', $checked = false, $attr = [])
+    public function radio($name = '', $checked = false, $value = '', $attr = [])
     {
         if(is_array($name)) {
             $element = '<input type="radio" ';
